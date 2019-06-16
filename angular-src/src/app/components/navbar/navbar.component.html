@@ -10,8 +10,8 @@
       </button>
 
       <a routerLink="/" class="navbar-brand" (click)="onNavigate()">
-        <span><img alt="Brand" src="assets/img/brand.ico" width="34px" height="34px"></span>
-        ChatApp
+        <span><img alt="Brand" src="https://aainball.asia/wp-content/uploads/2018/11/logo.png" width="34px" height="34px"></span>
+        Aainball Scoreboard
       </a>
     </div>
 
@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-left">
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="onNavigate()"><a routerLink="/">Home</a></li>
-        <li *ngIf="authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/chat">Chat</a></li>
+        <li *ngIf="authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/chat">Match</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

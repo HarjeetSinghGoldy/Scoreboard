@@ -19,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
 export class ChatRoomComponent implements OnInit, OnDestroy {
   messageList: Array<Message>;
   userList: Array<any>;
+  matchList: Array<any>;
   showActive: boolean;
   sendForm: FormGroup;
   username: string;
@@ -55,6 +56,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
     this.getMessages(this.chatWith);
 
     this.connectToChat();
+    this.matchList = [{"title":"Match 1","teamA":"A","teamB":"B","online":true},{"title":"Match 2","teamA":"AA","teamB":"BB","online":false  }]
   }
 
   ngOnDestroy() {

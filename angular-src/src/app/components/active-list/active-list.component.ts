@@ -8,6 +8,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 export class ActiveListComponent implements OnInit {
   @Input() users: Array<String>;
+  @Input() matches: Array<String>;
   @Input() current: string;
   @Output() newConv = new EventEmitter<string>();
 

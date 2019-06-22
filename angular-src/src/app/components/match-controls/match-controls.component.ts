@@ -24,6 +24,8 @@ export class MatchControlsComponent implements OnInit, OnDestroy {
   sendForm: FormGroup;
   username: string;
   chatWith: string;
+  matchBtw: string;
+  matchDetails: string;
   currentOnline: boolean;
   receiveMessageObs: any;
   receiveActiveObs: any;
@@ -46,14 +48,16 @@ export class MatchControlsComponent implements OnInit, OnDestroy {
     this.username = userData.user.username;
 
     this.route.params.subscribe((params: Params) => {
+      console.log("params",params)
       this.chatWith = params.chatWith;
+      this.matchBtw = params.matchBtw;
     });
 
     this.sendForm = this.formBuilder.group({
       message: ['', Validators.required],
     });
 
-    this.getMessages(this.chatWith);
+    // this.getMessages(this.chatWith);
 
     this.connectToChat();
     // this.matchList = [{"title":"Match 1","teamA":"A","teamB":"B","online":true},{"title":"Match 2","teamA":"AA","teamB":"BB","online":false  }]
@@ -80,6 +84,28 @@ export class MatchControlsComponent implements OnInit, OnDestroy {
 
   getMessages(name: string): void {
     this.chatService.getConversation(this.username, name).subscribe(data => {
+      if (data.success == true) {
+        this.conversationId =
+          data.conversation._id || data.conversation._doc._id;
+        let messages = data.conversation.messages || null;
+        if (messages && messages.length > 0) {
+          for (let message of messages) {
+            this.checkMine(message);
+          }
+          this.noMsg = false;
+          this.messageList = messages;
+          this.scrollToBottom();
+        } else {
+          this.noMsg = true;
+          this.messageList = [];
+        }
+      } else {
+        this.onNewConv('chat-room');
+      }
+    });
+  }
+  getMatchBtw(title: string): void {
+    this.chatService.getMatchBtwByTitle(title).subscribe(data => {
       if (data.success == true) {
         this.conversationId =
           data.conversation._id || data.conversation._doc._id;
@@ -281,6 +307,20 @@ export class MatchControlsComponent implements OnInit, OnDestroy {
     this.currentOnline = this.checkOnline(username);
     this.showActive = false;
   }
+  onMatchSelect(match) {
+    console.log("onMatchSelect",this.matchBtw,match.title)
+    this.matchDetails = match
+    if (this.matchBtw != match.title) {
+      console.log("inside if")
+      this.router.navigate(['/chat', match.title]);
+      // this.getMatchBtw(title);
+    } else {
+      console.log("inside else")
+      this.getMatchBtw(match.title);
+    }
+    // this.currentOnline = this.checkOnline(username);
+    this.showActive = false;
+  }
 
   notifSound(): void {
     let sound: any = this.el.nativeElement.querySelector('#notifSound');
@@ -289,7 +329,7 @@ export class MatchControlsComponent implements OnInit, OnDestroy {
 
   msgSound(): void {
     let sound: any = this.el.nativeElement.querySelector('#msgSound');
-    sound.load();
+    // sound.load();
     sound.play();
   }
 
@@ -321,5 +361,12 @@ export class MatchControlsComponent implements OnInit, OnDestroy {
     if (a.username < b.username) return -1;
     if (a.username > b.username) return 1;
     return 0;
+  }
+
+  flagButton(color){
+    this.msgSound()
+  }
+  scoreButton(color){
+    this.notifSound()
   }
 }

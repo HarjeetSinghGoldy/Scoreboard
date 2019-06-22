@@ -11,6 +11,7 @@ export class ActiveListComponent implements OnInit {
   @Input() matches: Array<String>;
   @Input() current: string;
   @Output() newConv = new EventEmitter<string>();
+  @Output() matchSelect = new EventEmitter<string>();
 
   constructor() { }
 
@@ -19,6 +20,11 @@ export class ActiveListComponent implements OnInit {
 
   onUserClick(username: string): boolean {
     this.newConv.emit(username);
+    return false;
+  }
+
+  onMatchClick(match: string): boolean {
+    this.matchSelect.emit(match);
     return false;
   }
 

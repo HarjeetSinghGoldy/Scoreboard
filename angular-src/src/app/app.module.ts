@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   { path: 'add-match-form',  component: AddMatchFormComponent },
   { path: 'chat', canActivate: [AuthGuard], children: [
     // { path: ':chatWith', component: ChatRoomComponent },
-    { path: ':chatWith', component: MatchControlsComponent },
+    { path: ':matchBtw', component: MatchControlsComponent },
     { path: '**', redirectTo: '/chat/chat-room', pathMatch: 'full' }
   ] },
   { path: '**', redirectTo: '/', pathMatch: 'full' }

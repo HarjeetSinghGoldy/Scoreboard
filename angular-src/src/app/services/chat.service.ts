@@ -74,6 +74,27 @@ export class ChatService {
 
     return observableReq;
   }
+  getMatchBtwByTitle(title: string): any {
+    let url = this.apiUrl +"/match/"+title;
+    // if (name2 != 'chat-room') {
+    //   let route = '/' + name1 + '/' + name2;
+    //   url += route;
+    // }
+
+    let authToken = this.authService.getUserData().token;
+
+    // prepare the request
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: authToken,
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    // POST
+    let observableReq = this.http.get(url, options).map(this.extractData);
+
+    return observableReq;
+  }
 
   getUserList(): any {
     let url = this.usersUrl;

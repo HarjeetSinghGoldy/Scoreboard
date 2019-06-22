@@ -24,6 +24,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   sendForm: FormGroup;
   username: string;
   chatWith: string;
+  matchBtw: string;
   currentOnline: boolean;
   receiveMessageObs: any;
   receiveActiveObs: any;
@@ -80,6 +81,28 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 
   getMessages(name: string): void {
     this.chatService.getConversation(this.username, name).subscribe(data => {
+      if (data.success == true) {
+        this.conversationId =
+          data.conversation._id || data.conversation._doc._id;
+        let messages = data.conversation.messages || null;
+        if (messages && messages.length > 0) {
+          for (let message of messages) {
+            this.checkMine(message);
+          }
+          this.noMsg = false;
+          this.messageList = messages;
+          this.scrollToBottom();
+        } else {
+          this.noMsg = true;
+          this.messageList = [];
+        }
+      } else {
+        this.onNewConv('chat-room');
+      }
+    });
+  }
+  getMatchBtw(title: string): void {
+    this.chatService.getMatchBtwByTitle(title).subscribe(data => {
       if (data.success == true) {
         this.conversationId =
           data.conversation._id || data.conversation._doc._id;
@@ -272,6 +295,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
   }
 
   onNewConv(username: string) {
+    console.log("onNewConv",username),this.chatWith
     if (this.chatWith != username) {
       this.router.navigate(['/chat', username]);
       this.getMessages(username);
@@ -279,6 +303,17 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
       this.getMessages(username);
     }
     this.currentOnline = this.checkOnline(username);
+    this.showActive = false;
+  }
+  onMatchSelect(match) {
+    console.log("onMatchSelect",match.this.matchBtw)
+    if (this.matchBtw != match.title) {
+      this.router.navigate(['/chat', match.title]);
+      this.getMatchBtw(match.title);
+    } else {
+      this.getMatchBtw(match.title);
+    }
+    // this.currentOnline = this.checkOnline(username);
     this.showActive = false;
   }
 

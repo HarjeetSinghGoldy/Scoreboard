@@ -25,13 +25,13 @@
     <a *ngFor="let match of matches"
       href="#"
       class="list-group-item"
-      (click)="onUserClick(match.title)"
+      (click)="onMatchClick(match)"
       [ngClass]="{active: match.title == current, online: match.online}"
       >
         <img src="assets/img/logo_1.png" alt="avatar" height="28.5px" width="30px">
         {{match.title}}<br>
-        ({{match.teamNameA}} v/s
-        {{match.teamNameB}})
+        <strong>({{match.teamNameA}} v/s
+        {{match.teamNameB}})</strong>
         <span *ngIf="match.online" class="glyphicon glyphicon-ok-sign pull-right" aria-hidden="true" style="padding-top: 5px"></span>
     </a>
   </ul>

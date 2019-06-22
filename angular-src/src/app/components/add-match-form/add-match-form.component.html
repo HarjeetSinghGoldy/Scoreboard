@@ -1,0 +1,74 @@
+<div *ngIf="user" class="container">
+  <div class="container">
+    <h2 class="page-header">Add New Match</h2>
+
+    <form [formGroup]="registerForm"
+      (ngSubmit)="onRegisterSubmit()"
+      >
+
+    <div class="form-group">
+      <label for="title">Team Title:</label>
+
+      <input type="text" name="title" class="form-control"
+        id="title"
+        placeholder="Enter your match title"
+        formControlName="title"
+        autofocus="true"
+        >
+    </div>
+    <div class="form-group">
+      <label for="teamNameA">Team (A) Name :</label>
+
+      <input type="text" name="teamNameA" class="form-control"
+        id="teamNameA"
+        placeholder="Enter your Team (A) Name"
+        formControlName="teamNameA"
+        autofocus="true"
+        >
+    </div>
+
+    <div class="form-group">
+      <label for="teamNameB">Team (B) Name :</label>
+
+      <input type="text" name="teamNameB" class="form-control"
+        id="teamNameB"
+        placeholder="Enter your Team (B) Name"
+        formControlName="teamNameB"
+        autofocus="true"
+        >
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="password">Password</label>
+
+      <input type="password" name="password" class="form-control"
+        id="password"
+        placeholder="Enter your password"
+        formControlName="password"
+        >
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label for="confirmPass">Confirm password</label>
+
+        <input type="password" name="confirmPass" class="form-control"
+        id="confirmPass"
+        placeholder="Confirm password"
+        formControlName="confirmPass"
+        >
+    </div> -->
+
+    <div class="form-group">
+      <button [disabled]="registerForm.invalid"
+        type="submit"
+        class="btn btn-primary"
+        name="register"
+        >Save
+      </button>
+    </div>
+
+    </form>
+
+  </div>
+
+</div>

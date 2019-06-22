@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatRoomComponent } from './components/chat-room/chat-room.component';
+import { MatchControlsComponent } from './components/match-controls/match-controls.component';
 import { AddMatchFormComponent } from './components/add-match-form/add-match-form.component';
 import { MessageComponent } from './components/message/message.component';
 
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'add-match-form',  component: AddMatchFormComponent },
   { path: 'chat', canActivate: [AuthGuard], children: [
-    { path: ':chatWith', component: ChatRoomComponent },
+    // { path: ':chatWith', component: ChatRoomComponent },
+    { path: ':chatWith', component: MatchControlsComponent },
     { path: '**', redirectTo: '/chat/chat-room', pathMatch: 'full' }
   ] },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
@@ -42,6 +44,7 @@ const appRoutes: Routes = [
     HomeComponent,
     ProfileComponent,
     ChatRoomComponent,
+    MatchControlsComponent,
     AddMatchFormComponent,
     MessageComponent,
     ActiveListComponent

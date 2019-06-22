@@ -13,10 +13,10 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chat-room',
-  templateUrl: './chat-room.component.html',
-  styleUrls: ['./chat-room.component.scss'],
+  templateUrl: './match-controls.component.html',
+  styleUrls: ['./match-controls.component.scss'],
 })
-export class ChatRoomComponent implements OnInit, OnDestroy {
+export class MatchControlsComponent implements OnInit, OnDestroy {
   messageList: Array<Message>;
   userList: Array<any>;
   matchList: Array<any>;

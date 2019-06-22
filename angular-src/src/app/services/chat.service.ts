@@ -92,6 +92,23 @@ export class ChatService {
 
     return observableReq;
   }
+  getMatchList(): any {
+    let url = this.usersUrl+"/getMatchList";
+
+    let authToken = this.authService.getUserData().token;
+
+    // prepare the request
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: authToken,
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    // POST
+    let observableReq = this.http.get(url, options).map(this.extractData);
+
+    return observableReq;
+  }
 
   receiveMessage(): any {
     let observable = new Observable(observer => {

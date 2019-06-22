@@ -36,12 +36,15 @@ router.post('/register', (req, res, next) => {
     });
   }
 });
+
 router.post('/addNewMatch', (req, res, next) => {
   let response = { success: false };
   console.log("req",req.body);
     let newMatch = new Match({
       teamNameA: req.body.teamNameA,
       teamNameB: req.body.teamNameB,
+      title: req.body.title,
+      online:false
     });
 
     console.log("newMatch newMatch@@@@",newMatch);
@@ -111,6 +114,21 @@ router.get('/', (req, res, next) => {
       let response = {
         success: true,
         users: users,
+      };
+      return res.json(response);
+    })
+    .catch(err => {
+      log.err('mongo', 'failed to get users', err.message || err);
+      return next(new Error('Failed to get users'));
+    });
+});
+
+router.get('/getMatchList', (req, res, next) => {
+  Match.getMatchs()
+    .then(matches => {
+      let response = {
+        success: true,
+        matches: matches,
       };
       return res.json(response);
     })

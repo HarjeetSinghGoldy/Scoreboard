@@ -31,6 +31,22 @@ export class AuthService {
     return observableReq;
   }
 
+  addNewMatch(user): any {
+    let url: string = this.apiUrl + '/addNewMatch';
+
+    // prepare the request
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let reqBody = user;
+
+    // POST
+    let observableReq = this.http
+      .post(url, reqBody, options)
+      .map(this.extractData);
+
+    return observableReq;
+  }
+
   authenticateUser(user): any {
     let url: string = this.apiUrl + '/authenticate';
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Match = require('../models/match');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
@@ -34,6 +35,32 @@ router.post('/register', (req, res, next) => {
       }
     });
   }
+});
+router.post('/addNewMatch', (req, res, next) => {
+  let response = { success: false };
+  console.log("req",req.body);
+    let newMatch = new Match({
+      teamNameA: req.body.teamNameA,
+      teamNameB: req.body.teamNameB,
+    });
+
+    console.log("newMatch newMatch@@@@",newMatch);
+    Match.addMatch(newMatch, (err, match) => {
+      if (err) {
+        response.msg = err.msg || 'Failed to register match';
+        res.json(response);
+      } else {
+        response.success = true;
+        response.msg = 'Match registered successfuly';
+        response.match = {
+          id: match._id,
+          teamNameA: match.teamNameA,
+          teamNameB: match.teamNameB,
+        };
+        console.log('[%s] registered successfuly', response.match );
+        res.json(response);
+      }
+    });
 });
 
 router.post('/authenticate', (req, res, next) => {

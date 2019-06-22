@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatRoomComponent } from './components/chat-room/chat-room.component';
+import { AddMatchFormComponent } from './components/add-match-form/add-match-form.component';
 import { MessageComponent } from './components/message/message.component';
 
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'add-match-form',  component: AddMatchFormComponent },
   { path: 'chat', canActivate: [AuthGuard], children: [
     { path: ':chatWith', component: ChatRoomComponent },
     { path: '**', redirectTo: '/chat/chat-room', pathMatch: 'full' }
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
     HomeComponent,
     ProfileComponent,
     ChatRoomComponent,
+    AddMatchFormComponent,
     MessageComponent,
     ActiveListComponent
   ],

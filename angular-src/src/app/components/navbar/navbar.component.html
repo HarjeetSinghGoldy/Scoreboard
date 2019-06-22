@@ -26,6 +26,7 @@
         <li *ngIf="!authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/login">Login</a></li>
         <li *ngIf="!authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/register">Register</a></li>
         <li *ngIf="authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/profile">Profile</a></li>
+        <li *ngIf="authService.loggedIn()" routerLinkActive="active" (click)="onNavigate()"><a routerLink="/add-match-form">Add Match</a></li>
         <li *ngIf="authService.loggedIn()"><a href="#" (click)="onLogoutClick()">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
